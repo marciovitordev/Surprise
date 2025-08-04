@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Surpresa Interativa</title>
+  <style>
+    /* ---------- ESTILOS GERAIS ---------- */
+    body {
+      margin: 0;
+      height: 100vh;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      background: linear-gradient(135deg, #ff4f9a, #8a2be2, #00d4ff, #000000);
+      background-size: 400% 400%;
+      animation: gradientAnim 12s ease infinite;
+      font-family: 'Poppins', sans-serif;
+      color: white;
+      overflow-x: hidden;
+      flex-direction: column;
+      text-align: center;
+    }
+
+    @keyframes gradientAnim {
+      0% { background-position: 0% 50%; }
+      50% { background-position: 100% 50%; }
+      100% { background-position: 0% 50%; }
+    }
+
+    /* Botão central */
+    .botao {
+      padding: 20px 50px;
+      font-size: 1.5rem;
+      background: linear-gradient(45deg, #ff69b4, #8a2be2, #1e90ff);
+      color: white;
+      border: none;
+      border-radius: 50px;
+      cursor: pointer;
+      box-shadow: 0 0 20px rgba(255, 255, 255, 0.6);
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+    }
+
+    .botao:hover {
+      transform: scale(1.1);
+      box-shadow: 0 0 30px rgba(255, 255, 255, 0.8), 0 0 60px #ff69b4;
+    }
+
+    /* Caixa de surpresa */
+    .caixa {
+      margin-top: 30px;
+      opacity: 0;
+      transform: translateY(-20px);
+      max-height: 0;
+      overflow: hidden;
+      transition: opacity 0.8s ease, transform 0.8s ease, max-height 0.8s ease;
+      font-size: 1.3rem;
+      line-height: 1.6;
+      background: rgba(255, 255, 255, 0.1);
+      backdrop-filter: blur(5px);
+      padding: 20px;
+      border-radius: 15px;
+      border: 2px solid rgba(255,255,255,0.2);
+      box-shadow: 0 0 15px rgba(255,255,255,0.4);
+      width: 80%;
+      max-width: 600px;
+      margin-left: auto;
+      margin-right: auto;
+    }
+
+    .caixa.mostrar {
+      opacity: 1;
+      transform: translateY(0);
+      max-height: 500px;
+    }
+
+    /* Botões de escolha */
+    .botoes-escolha {
+      margin-top: 20px;
+      display: flex;
+      justify-content: center;
+      gap: 20px;
+    }
+
+    .botoes-escolha button {
+      padding: 12px 30px;
+      font-size: 1.1rem;
+      border: none;
+      border-radius: 30px;
+      cursor: pointer;
+      background: linear-gradient(45deg, #ff69b4, #8a2be2);
+      color: white;
+      transition: transform 0.3s, box-shadow 0.3s;
+    }
+
+    .botoes-escolha button:hover {
+      transform: scale(1.1);
+      box-shadow: 0 0 15px rgba(255,255,255,0.8);
+    }
+
+    /* Partículas */
+    .particle {
+      position: absolute;
+      width: 10px;
+      height: 10px;
+      background: white;
+      border-radius: 50%;
+      opacity: 0.7;
+      animation: float 8s infinite linear;
+      z-index: -1;
+    }
+
+    @keyframes float {
+      from { transform: translateY(100vh) translateX(0); opacity: 0; }
+      30% { opacity: 1; }
+      to { transform: translateY(-10vh) translateX(50px); opacity: 0; }
+    }
+  </style>
+</head>
+<body>
+  <button class="botao" onclick="mostrarCaixa()">💖 Olá, ANA</button>
+
+  <!-- Primeira caixa surpresa -->
+  <div class="caixa" id="caixa1">
+    Nietzsche dizia que a vida sem música seria um erro… e eu diria que
+     a vida sem boas conversas também. Que tal a gente sair um dia desses, 
+     trocar umas ideias e ver até onde a filosofia leva a gente?😉
+    <div class="botoes-escolha">
+      <button onclick="abrirWhatsApp()">Sim</button>
+    </div>
+  </div>
+
+  <!-- Caixa "Não" -->
+  <div class="caixa" id="caixaNao">
+    🙃 Você escolheu <strong>NÃO!</strong><br>
+    🤔 Tudo bem, mas saiba que ainda há mistérios escondidos por aqui...
+  </div>
+
+  <script>
+    const caixa1 = document.getElementById('caixa1');
+    const caixaNao = document.getElementById('caixaNao');
+
+    function mostrarCaixa() {
+      caixa1.classList.toggle('mostrar');
+    }
+
+    function abrirWhatsApp() {
+      // 🔗 Altere o número abaixo para o seu WhatsApp
+      window.location.href = "https://wa.me/5519995302254?text=Sim!"; 
+    }
+
+    function mostrarCaixaNao() {
+      caixaNao.classList.add('mostrar');
+    }
+
+    // Partículas animadas
+    function criarParticulas() {
+      for (let i = 0; i < 10; i++) {
+        let p = document.createElement('div');
+        p.className = 'particle';
+        p.style.left = Math.random() * window.innerWidth + 'px';
+        p.style.animationDuration = 5 + Math.random() * 5 + 's';
+        p.style.background = ['#ff4f9a','#8a2be2','#00d4ff','#ffffff'][Math.floor(Math.random()*4)];
+        document.body.appendChild(p);
+        setTimeout(() => p.remove(), 10000);
+      }
+    }
+    setInterval(criarParticulas, 1000);
+  </script>
+</body>
+</html>
