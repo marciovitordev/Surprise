@@ -1,12 +1,13 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
+  <audio id="bg-music" autoplay loop>
+  <source src="music.mp3" type="audio/mpeg">
+</audio>
+
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>My Sunshine</title>
-  <audio autoplay loop>
-    <source src="music.mp3" type="audio/mpeg">
-  </audio>
   <style>
     body {
       margin: 0;
@@ -195,6 +196,13 @@
     function mostrarCaixaNao() {
       caixaNao.classList.add('mostrar');
     }
+     window.addEventListener('load', () => {
+    const music = document.getElementById('bg-music');
+    music.volume = 0.5; )
+    music.play().catch(() => {
+      console.log("Autoplay bloqueado, será reproduzido após interação.");
+    });
+  });
   </script>
 
 
